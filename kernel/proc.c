@@ -21,6 +21,16 @@ static void freeproc(struct proc *p);
 
 extern char trampoline[]; // trampoline.S
 
+void
+procnum(uint64 *dst)
+{
+  *dst = 0;
+  struct proc *p;
+  for(p = proc; p < &proc[NPROC]; ++p){
+    if(p->state != UNUSED) (*dst)++;
+  }
+}
+
 // initialize the proc table at boot time.
 void
 procinit(void)
@@ -695,3 +705,4 @@ procdump(void)
     printf("\n");
   }
 }
+
